@@ -21,7 +21,7 @@ public class ArticleController {
 	 * 글 목록
 	 */
 	@GetMapping("/article/list")
-	public String articleList(
+	public void articleList(
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			Model model) {
 
@@ -33,7 +33,6 @@ public class ArticleController {
 		int totalCount = articleDao.getArticlesCount();
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("articleList", articleList);
-		return "article/list";
 	}
 
 	/**
@@ -60,7 +59,7 @@ public class ArticleController {
 	@PostMapping("/article/add")
 	public String articleAdd(Article article, HttpSession session) {
 		article.setUserId("123456");
-		article.setName("신윤지");
+		article.setName("배설희");
 		articleDao.addArticle(article);
 		return "redirect:/app/article/list";
 	}

@@ -1,6 +1,4 @@
 package com.yoonji.book.chap11;
-
-
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -26,18 +24,22 @@ public class RegisterController {
 	MemberDao memberDao;
 
 	static final Logger logger = LogManager.getLogger();
-	
-	/**
+
 	@RequestMapping("/main")
 	public String main() {
 		return "main";
 	}
-	 
+
+	/**
+	 * p.271 [리스트 11.5] handleStep1()
+	 */
 	@RequestMapping("/register/step1")
 	public String handleStep1() {
 		return "register/step1";
 	}
 
+	/**
+	 * p.276 [리스트 11.8] handleStep2()
 	 */
 	@PostMapping("/register/step2")
 	public String handleStep2(
