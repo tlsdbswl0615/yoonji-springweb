@@ -1,4 +1,6 @@
 <%@ page isErrorPage="true"%>
+<!doctype html>
+<!-- 에러 페이지 -->
 <html>
 <body>
 	<h2>Error</h2>
