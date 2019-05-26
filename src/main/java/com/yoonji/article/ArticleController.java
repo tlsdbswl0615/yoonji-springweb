@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,6 +66,42 @@ public class ArticleController {
 		article.setUserId(member.getMemberId());
 		article.setName(member.getName());
 		articleDao.addArticle(article);
+		return "redirect:/app/article/list";
+	}
+	
+	@GetMapping("/article/reviseForm")
+	public String reviseForm(@RequestParam(value = "articleId") String articleId,
+			@SessionAttribute("MEMBER") Member member
+			,Model model)
+	{
+		Article article = articleDao.getArticle(articleId);
+		if(!member.getMemberId().equals(article.getUserId()))
+			return "redirect:/app/article/view?articleId="+articleId;
+			//return "forward:/app/article/articles";
+		model.addAttribute("article",article);
+		return "article/reviseForm";
+	}
+	@PostMapping("/article/revise")
+	public String revise(Article article,
+			@RequestParam(value="articleId") String articleId,
+			@SessionAttribute("MEMBER") Member member)
+	{
+		try {
+			articleDao.updateArticle(article);
+			return "redirect:/app/article/view?articleId="+articleId;
+		} catch (DuplicateKeyException e) {
+			return "redirect:/app/article/list";
+		}
+	}
+	@GetMapping("/article/delete")
+	public String delete(
+			@RequestParam(value="articleId") String articleId,
+			@SessionAttribute("MEMBER") Member member)
+	{
+		Article article = articleDao.getArticle(articleId);
+		if(!member.getMemberId().equals(article.getUserId()))
+			return "redirect:/app/article/view?articleId="+articleId;
+		articleDao.deleteArticle(articleId);
 		return "redirect:/app/article/list";
 	}
 }
