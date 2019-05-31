@@ -39,6 +39,34 @@ public class LetterController {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("letterList", letterList);
 	}
+	/**
+	 * 글 보기
+	 */
+	@GetMapping("/letter/view")
+	public void letterView(@RequestParam("letterId") String letterId,Model model) {
+		Letter letter = letterDao.getLetter(letterId);
+		model.addAttribute("letter", letter);
+	}
+
+	/**
+	 * 글 등록 화면
+	 */
+	@GetMapping("/letter/addForm")
+	public String letterAddForm(HttpSession session) {
+		return "letter/addForm";
+	}
+
+	/**
+	 * 글 등록
+	 */
+	@PostMapping("/letter/add")
+	public String articleAdd(Letter letter,
+			@SessionAttribute("MEMBER") Member member) {
+		letter.setUserId(member.getMemberId());
+		letter.setName(member.getName());
+		letterDao.addLetter(letter);
+		return "redirect:/app/letter/list";
+	}
 	//편지삭제
 	@GetMapping("/letter/delete")
 	public String delete(
