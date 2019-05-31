@@ -34,5 +34,7 @@
 	<hr />
 	<p>${article.contentHtml }</p>
 	<hr />
+	<a href="./app/article/reviseForm?articleId=${article.articleId}">수정하기</a>
+	<a href="./app/article/delete?articleId=${article.articleId}">삭제하기</a>
 </body>
 </html>

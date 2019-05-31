@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.yoonji.book.chap11.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,6 +70,7 @@ public class ArticleController {
 		articleDao.addArticle(article);
 		return "redirect:/app/article/list";
 	}
+<<<<<<< HEAD
 
 	/**
 	 * 글 수정 화면
@@ -118,6 +120,42 @@ public class ArticleController {
 			throw new RuntimeException("No Authority!");
 
 		logger.debug("글을 삭제했습니다. articleId={}", articleId);
+=======
+	
+	@GetMapping("/article/reviseForm")
+	public String reviseForm(@RequestParam(value = "articleId") String articleId,
+			@SessionAttribute("MEMBER") Member member
+			,Model model)
+	{
+		Article article = articleDao.getArticle(articleId);
+		if(!member.getMemberId().equals(article.getUserId()))
+			return "redirect:/app/article/view?articleId="+articleId;
+			//return "forward:/app/article/articles";
+		model.addAttribute("article",article);
+		return "article/reviseForm";
+	}
+	@PostMapping("/article/revise")
+	public String revise(Article article,
+			@RequestParam(value="articleId") String articleId,
+			@SessionAttribute("MEMBER") Member member)
+	{
+		try {
+			articleDao.updateArticle(article);
+			return "redirect:/app/article/view?articleId="+articleId;
+		} catch (DuplicateKeyException e) {
+			return "redirect:/app/article/list";
+		}
+	}
+	@GetMapping("/article/delete")
+	public String delete(
+			@RequestParam(value="articleId") String articleId,
+			@SessionAttribute("MEMBER") Member member)
+	{
+		Article article = articleDao.getArticle(articleId);
+		if(!member.getMemberId().equals(article.getUserId()))
+			return "redirect:/app/article/view?articleId="+articleId;
+		articleDao.deleteArticle(articleId);
+>>>>>>> d7e3785627becb69b6d42406dc58921f97328edc
 		return "redirect:/app/article/list";
 	}
 }
