@@ -7,19 +7,9 @@ public class Member {
 	String name; // 이름
 	String cdate; // 가입일
 
-	/**
-	 * Default Constructor
-	 */
 	public Member() {
 	}
 
-	/**
-	 * email, password, name 으로 초기화하는 컨스트럭터
-	 * 
-	 * @param email    이메일
-	 * @param password 비밀번호
-	 * @param name     이름
-	 */
 	public Member(String email, String password, String name) {
 		this.email = email;
 		this.password = password;
