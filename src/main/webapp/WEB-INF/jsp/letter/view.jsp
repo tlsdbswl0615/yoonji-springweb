@@ -18,7 +18,7 @@
 	<h2>글 보기</h2>
 	<p>
 		<a href="./app/letter/list">글목록</a>
-		<c:if test="${letter.userId == sessionScope.MEMBER.memberId }">
+		<c:if test="${letter.receiverId == sessionScope.MEMBER.memberId || letter.senderId == sessionScope.MEMBER.memberId }">
 			<a href="./app/letter/updateForm?letterId=${letter.letterId }">글수정</a>
 			<a href="./app/letter/delete?letterId=${letter.letterId }"
 				onclick="return confirmDelete();">글삭제</a>
@@ -29,12 +29,11 @@
 		<span>${letter.letterId }</span> | <span style="font-weight: bold;">${letter.title }</span>
 	</p>
 	<p>
-		<span>${letter.cdate }</span> | <span>${letter.name }</span>
+		<span>${letter.cdate }</span> | <span>${letter.receiverName }</span> | <span>${letter.senderName }</span>
 	</p>
 	<hr />
 	<p>${letter.contentHtml }</p>
 	<hr />
-	<a href="./app/letter/reviseForm?letterId=${letter.letterId}">수정하기</a>
 	<a href="./app/letter/delete?letterId=${letter.letterId}">삭제하기</a>
 </body>
 </html>

@@ -1,22 +1,22 @@
 package com.yoonji.letter;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.yoonji.article.Article;
-
 @Repository
 public class LetterDao {
 
 	static final String WRITE_LETTER ="insert letter(title,content,senderId,senderName,receiverId,receiverName) values(?,?,?,?,?,?)";
-	static final String SEND_LETTER ="select letterId,title,receiverId,receiverName,cdate where senderId=?";
-	static final String RECEIVE_LETTER="select letterId,title,senderId,senderName,cdate from letter where receiverId=?";
-	static final String LIST_LETTER="select letterId,title,content,senderId,senderName,receiverId,receiverName,cdate from letter where letterId=? and(senderId=? or receiverId=?";
-	static final String DELETE_LETTER="delete from letter where letterId=? and (senderId=? or receiverId=?";
-
+	static final String SEND_LETTER ="select letterId,title,receiverId,receiverName,cdate from letter where senderId=? order by letterId desc limit ?,?";
+	static final String RECEIVE_LETTER="select letterId,title,senderId,senderName,cdate from letter where receiverId=? order by letterId desc limit ?,?";
+	static final String GET_LETTER="select letterId,title,content,senderId,senderName,receiverId,receiverName,cdate from letter where letterId=?";
+	static final String DELETE_LETTER="delete from letter where letterId=? and (senderId=? or receiverId=?)";
+	static final String COUNT_SEND = "select count(letterId) from letter where senderId=?";
+	static final String COUNT_RECEIVE = "select count(letterId) from letter where receiverId=?";
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
@@ -27,19 +27,21 @@ public class LetterDao {
 				letter.getContent(), letter.getSenderId(), letter.getSenderName(),letter.getReceiverId(),letter.getReceiverName());
 	}
 	//보낸목록
-	public Letter sendLetter(String letterId) {
-		return jdbcTemplate.queryForObject(SEND_LETTER, letterRowMapper,letterId);
+	public List<Letter> sendLetter(String letterId,int offset, int count) {
+		return jdbcTemplate.query(SEND_LETTER, letterRowMapper,letterId,offset, count);
 	}
 	//받은목록
-	public Letter receiveLetter(String letterId) {
-		return jdbcTemplate.queryForObject(RECEIVE_LETTER, letterRowMapper,letterId);
+	public List<Letter> receiveLetter(String letterId,int offset, int count) {
+		return jdbcTemplate.query(RECEIVE_LETTER, letterRowMapper,letterId,offset, count);
 	}
 	//상세내역보기
-	public List<Letter> listLetters(int offset, int count) {
-		return jdbcTemplate.query(LIST_LETTER, letterRowMapper, offset,count);
+	public Letter getLetter(String letterId) {
+		return jdbcTemplate.queryForObject(GET_LETTER, letterRowMapper, letterId);
 	}
 	//편지삭제
-	public int deleteArticle(String letterId, String senderId, String receiverId) {
-		return jdbcTemplate.update(DELETE_LETTER, letterId, receiverId);
+	public int deleteLetter(String letterId, String senderId, String receiverId) {
+		return jdbcTemplate.update(DELETE_LETTER, letterId, senderId,receiverId);
 	}
+	
+	
 }

@@ -22,9 +22,9 @@ th {
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/header.jsp"%>
-	<h2>글 목록</h2>
+	<h2>편지목록</h2>
 	<p>
-		<a href="./app/letter/addForm">글쓰기</a>
+		<a href="./app/letter/addForm">편지쓰기</a>
 	</p>
 	<p>전체 ${totalCount }건</p>
 	<form action="./app/letter/list">
@@ -35,9 +35,10 @@ th {
 	<table>
 		<thead>
 			<tr>
-				<th>글번호</th>
+				<th>편지번호</th>
 				<th>제목</th>
-				<th>등록자</th>
+				<th>받는사람</th>
+				<th>보낸사람</th>
 				<th>등록일시</th>
 			</tr>
 		</thead>
@@ -46,7 +47,8 @@ th {
 				<tr>
 					<td><a href="./app/letter/view?letterId=${letter.letterId }">${letter.letterId }</a></td>
 					<td><a href="./app/letter/view?letterId=${letter.letterId }">${letter.title }</a></td>
-					<td>${letter.name }</td>
+					<td>${letter.receiverId }</td>
+					<td>${letter.senderId }</td>
 					<td>${letter.cdate }</td>
 				</tr>
 			</c:forEach>

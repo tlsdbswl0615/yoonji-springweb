@@ -31,6 +31,7 @@
 					<td>${member.email }</td>
 					<td>${member.name }</td>
 					<td>${member.cdate }</td>
+					<td><a href="./app/letter/addForm?receiverId=${member.memberId}">편지쓰기</td>
 				</tr>
 			</c:forEach>
 		</tbody>
