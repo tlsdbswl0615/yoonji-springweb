@@ -9,9 +9,9 @@
 	<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	<h2>글 등록</h2>
 	<p>
-		<a href="./app/letter/list">글 목록</a>
+		<a href="./app/article/list">글 목록</a>
 	</p>
-	<form action="./app/letter/add" method="post">
+	<form action="./app/article/s/add" method="post">
 		<p>제목 :</p>
 		<p>
 			<input type="text" name="title" maxlength="100" style="width: 100%;" required>

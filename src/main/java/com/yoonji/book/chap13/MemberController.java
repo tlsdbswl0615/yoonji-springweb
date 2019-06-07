@@ -1,14 +1,11 @@
 package com.yoonji.book.chap13;
 
-import javax.servlet.http.HttpSession;
-
 import com.yoonji.book.chap11.Member;
 import com.yoonji.book.chap11.MemberDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -23,16 +20,6 @@ public class MemberController {
 
 	@Autowired
 	MemberDao memberDao;
-
-	@RequestMapping("/member/memberInfo")
-	public String memberInfo(HttpSession session) {
-		return "member/memberInfo";
-	}
-
-	@RequestMapping("/member/changePwdForm")
-	public String changePwdForm(HttpSession session) {
-		return "member/changePwdForm";
-	}
 
 	@PostMapping("/member/changePwd")
 	public String submit(

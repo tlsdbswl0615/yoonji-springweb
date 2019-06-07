@@ -15,26 +15,30 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/header.jsp"%>
-	<h2>글 보기</h2>
+	<h2>편지 보기</h2>
 	<p>
-		<a href="./app/letter/list">글목록</a>
-		<c:if test="${letter.userId == sessionScope.MEMBER.memberId }">
-			<a href="./app/letter/updateForm?letterId=${letter.letterId }">글수정</a>
-			<a href="./app/letter/delete?letterId=${letter.letterId }"
-				onclick="return confirmDelete();">글삭제</a>
-		</c:if>
+		<c:choose>
+			<c:when test="${param.mode == 'SENT' }">
+				<a href="./app/letter/listSent">목록</a>
+			</c:when>
+			<c:otherwise>
+				<a href="./app/letter/listReceived">목록</a>
+			</c:otherwise>
+		</c:choose>
+		<a href="./app/letter/delete?letterId=${letter.letterId }&mode=${param.mode}"
+			onclick="return confirmDelete();">삭제</a>
 	</p>
 	<hr />
 	<p>
-		<span>${letter.letterId }</span> | <span style="font-weight: bold;">${letter.title }</span>
+		<span style="font-weight: bold;">${letter.title }</span>
 	</p>
 	<p>
-		<span>${letter.cdate }</span> | <span>${letter.name }</span>
+		보낸이 : <span>${letter.senderId }</span>:<span>${letter.senderName }</span><br />
+		받는이 : <span>${letter.receiverId }</span>:<span>${letter.receiverName }</span><br />
+		보낸시간 : <span>${letter.cdate }</span>
 	</p>
 	<hr />
 	<p>${letter.contentHtml }</p>
 	<hr />
-	<a href="./app/letter/reviseForm?letterId=${letter.letterId}">수정하기</a>
-	<a href="./app/letter/delete?letterId=${letter.letterId}">삭제하기</a>
 </body>
 </html>

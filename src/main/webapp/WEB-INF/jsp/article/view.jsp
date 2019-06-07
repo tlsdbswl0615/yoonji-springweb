@@ -19,8 +19,8 @@
 	<p>
 		<a href="./app/article/list">글목록</a>
 		<c:if test="${article.userId == sessionScope.MEMBER.memberId }">
-			<a href="./app/article/updateForm?articleId=${article.articleId }">글수정</a>
-			<a href="./app/article/delete?articleId=${article.articleId }"
+			<a href="./app/article/s/edit?articleId=${article.articleId }">글수정</a>
+			<a href="./app/article/s/delete?articleId=${article.articleId }"
 				onclick="return confirmDelete();">글삭제</a>
 		</c:if>
 	</p>
@@ -34,7 +34,5 @@
 	<hr />
 	<p>${article.contentHtml }</p>
 	<hr />
-	<a href="./app/article/reviseForm?articleId=${article.articleId}">수정하기</a>
-	<a href="./app/article/delete?articleId=${article.articleId}">삭제하기</a>
 </body>
 </html>
