@@ -32,8 +32,12 @@
 					<td>${member.email }</td>
 					<td>${member.name }</td>
 					<td>${member.cdate }</td>
+<<<<<<< HEAD
 					<td><a
 						href="./app/letter/form?receiverId=${member.memberId }&receiverName=${member.name }">편지쓰기</a></td>
+=======
+					<td><a href="./app/letter/addForm?receiverId=${member.memberId}">편지쓰기</td>
+>>>>>>> b8a8eb8ebbb2fe9f2a569125829d9c8570b98834
 				</tr>
 			</c:forEach>
 		</tbody>

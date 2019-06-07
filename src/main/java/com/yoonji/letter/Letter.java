@@ -74,16 +74,22 @@ public class Letter {
 	public void setCdate(String cdate) {
 		this.cdate = cdate;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * \n를 <br/> 로 바꾼다.
 	 */
+=======
+>>>>>>> b8a8eb8ebbb2fe9f2a569125829d9c8570b98834
 	public String getContentHtml() {
 		if (content != null)
 			return content.replace("\n", "<br/>");
 		return null;
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> b8a8eb8ebbb2fe9f2a569125829d9c8570b98834
 	@Override
 	public String toString() {
 		return "Letter [letterId=" + letterId + ", title=" + title

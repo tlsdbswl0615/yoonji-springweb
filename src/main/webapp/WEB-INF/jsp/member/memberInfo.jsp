@@ -15,5 +15,11 @@
 	<p>
 		<a href="./app/member/changePwdForm">비밀번호 변경</a>
 	</p>
+	<p>
+		<a href="./app/letter/receivelist">받은 메일함</a>
+	</p>
+	<p>
+		<a href="./app/letter/sendlist">보낸 메일함</a>
+	</p>
 </body>
 </html>
